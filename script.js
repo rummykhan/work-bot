@@ -1,6 +1,7 @@
 var tableId = '/project/d_order/index/Approved';
 var currentUrl = window.location.href;
 var remoteUrl = 'http://pk.rehanmanzoor.com/qin';
+remoteUrl = 'http://localhost:8000/qin';
 
 function getCurrentPage() {
   var match = /\d+/.exec(currentUrl);
@@ -42,9 +43,11 @@ function postData(data) {
   $.ajax({
     url: remoteUrl,
     method: 'POST',
+    contentType: 'application/json',
     data: JSON.stringify(data),
+    processData: false,
     success: function (data) {
-
+      window.close();
     },
     fail: function (data) {
 
@@ -66,10 +69,6 @@ function captureDetail() {
   data['address'] = addressElement.text().trim(' ').replace(/[\r\n]/g, '').replace(/  +/g, ' ');
 
   postData(data);
-
-  setTimeout(function () {
-    //window.close();
-  }, 1500);
 }
 
 if (isTable()) {
