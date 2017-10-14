@@ -1,13 +1,15 @@
 var tableId = '/project/d_order/index/Approved';
 var currentUrl = window.location.href;
-var referenceUrl = 'http://pizzapoint.com.pk/project/d_order/index/Approved';
 var remoteUrl = 'http://pk.rehanmanzoor.com/qin';
 
 function getCurrentPage() {
   var match = /\d+/.exec(currentUrl);
+
   if (null === match) {
     return 0;
   }
+
+  console.log(match);
 
   return parseInt(match[1]);
 }
@@ -15,7 +17,11 @@ function getCurrentPage() {
 function moveNext() {
   var page = getCurrentPage() + 10;
 
-  window.location.href = referenceUrl + '/' + page;
+  var url = 'http://pizzapoint.com.pk/project/d_order/index/Approved/' + page;
+
+  console.log(url);
+
+  //window.location.href = url;
 }
 
 function openLinks() {
@@ -62,7 +68,7 @@ function captureDetail() {
   postData(data);
 
   setTimeout(function () {
-    window.close();
+    //window.close();
   }, 1500);
 }
 

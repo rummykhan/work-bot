@@ -16,7 +16,8 @@
   "content_scripts": [
     {
       "matches": [
-        "http://www.pizzapoint.com.pk/*"
+        "http://www.pizzapoint.com.pk/*",
+        "http://pizzapoint.com.pk/*"
       ],
       "js": [
         "jquery.js",
