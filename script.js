@@ -22,8 +22,8 @@ function openLinks() {
   $('tr').each(function () {
     var link = $(this).find("a");
     link.attr('target', '_blank');
-    if (!!link.attr('href').trim(' ')) {
-      window.open();
+    if (undefined !== link.attr('href')) {
+      window.open(link.attr('href'));
     }
   });
 
