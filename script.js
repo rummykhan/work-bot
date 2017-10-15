@@ -22,7 +22,9 @@ function openLinks() {
   $('tr').each(function () {
     var link = $(this).find("a");
     link.attr('target', '_blank');
-    window.open(link.attr('href'));
+    if (!!link.attr('href').trim(' ')) {
+      window.open();
+    }
   });
 
   setTimeout(moveNext, 3000);
