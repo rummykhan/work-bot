@@ -17,7 +17,8 @@
     {
       "matches": [
         "http://www.pizzapoint.com.pk/*",
-        "http://pizzapoint.com.pk/*"
+        "http://pizzapoint.com.pk/*",
+        "http://localhost:8000/*"
       ],
       "js": [
         "jquery.js",

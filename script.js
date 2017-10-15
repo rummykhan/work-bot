@@ -50,18 +50,52 @@ function postData(data) {
   })
 }
 
+function trim(val) {
+  return val.trim().replace(/[\r\n]/g, '').replace(/  +/g, ' ')
+}
+
+function splitQuantity(quantityText) {
+  return quantityText.split(' x ').map(function (item) {
+    return trim(item);
+  });
+}
+
+function getProducts() {
+
+  var products = [];
+
+  $('tbody').eq(0).find('tr').each(function () {
+
+    var row = $(this);
+
+    var productName = trim(row.find('td').eq(1).text());
+    var split = splitQuantity(trim(row.find('td').eq(2).text()));
+
+    var product = {};
+    product['name'] = productName;
+    product['quantity'] = parseInt(split[0]);
+    product['price'] = parseInt(split[1].replace('PKR ', ''));
+
+    products.push(product);
+  });
+
+  return products;
+}
+
 function captureDetail() {
   var data = {};
   var nameElement = $('h4.text-info');
-  data['name'] = nameElement.text();
+  data['name'] = trim(nameElement.text().replace('Name :', ''));
 
   var phoneElement = $('span.ng-binding');
-  data['phone'] = phoneElement.text();
+  data['phone'] = trim(phoneElement.text());
 
-  data['email'] = phoneElement.next().next().text();
+  data['email'] = trim(phoneElement.next().next().text());
 
   var addressElement = $('p.ng-binding').eq(1);
-  data['address'] = addressElement.text().trim(' ').replace(/[\r\n]/g, '').replace(/  +/g, ' ');
+  data['address'] = trim(addressElement.text());
+
+  data['products'] = getProducts();
 
   postData(data);
 }
