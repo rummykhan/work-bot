@@ -1,6 +1,7 @@
 var tableId = '/project/d_order/index/Approved';
 var currentUrl = window.location.href;
-var remoteUrl = 'http://pk.rehanmanzoor.com/qin';
+var remoteUrl = 'http://pk.rehanmanzoor.com/orders';
+remoteUrl = 'http://localhost:8000/orders';
 
 function getCurrentPage() {
   var match = /\d+/.exec(currentUrl);
@@ -51,6 +52,7 @@ function postData(data) {
 }
 
 function trim(val) {
+  val = val || '';
   return val.trim().replace(/[\r\n]/g, '').replace(/  +/g, ' ')
 }
 
@@ -73,8 +75,8 @@ function getProducts() {
 
     var product = {};
     product['name'] = productName;
-    product['quantity'] = parseInt(split[0]);
-    product['price'] = parseInt(split[1].replace('PKR ', ''));
+    product['quantity'] = parseInt(!!split[0] ? split[0] : 0);
+    product['price'] = parseInt(!!split[1] ? split[1].replace('PKR ', '') : 0);
 
     products.push(product);
   });
@@ -96,6 +98,11 @@ function captureDetail() {
   data['address'] = trim(addressElement.text());
 
   data['products'] = getProducts();
+
+  var orderElement = $('h2');
+  data['order_id'] = !!orderElement.text() ? orderElement.text().replace('Order No: ', '') : 0;
+
+  data['hash'] = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
 
   postData(data);
 }

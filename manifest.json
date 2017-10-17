@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Getting started example",
-  "description": "This extension shows a Google Image search result for the current page",
+  "name": "Work BOT",
+  "description": "Purpose of this extension is to scrap data.",
   "version": "1.0",
   "browser_action": {
     "default_icon": "icon.png",
