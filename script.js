@@ -1,7 +1,6 @@
 var tableId = '/project/d_order/index/Approved';
 var currentUrl = window.location.href;
 var remoteUrl = 'http://pk.rehanmanzoor.com/orders';
-remoteUrl = 'http://localhost:8000/orders';
 
 function getCurrentPage() {
   var match = /\d+/.exec(currentUrl);
