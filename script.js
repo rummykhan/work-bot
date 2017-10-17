@@ -1,6 +1,7 @@
 var tableId = '/project/d_order/index/Approved';
 var currentUrl = window.location.href;
 var remoteUrl = 'http://pk.rehanmanzoor.com/orders';
+remoteUrl = 'http://localhost:8000/orders';
 
 function getCurrentPage() {
   var match = /\d+/.exec(currentUrl);
@@ -102,6 +103,13 @@ function captureDetail() {
   data['order_id'] = !!orderElement.text() ? orderElement.text().replace('Order No: ', '') : 0;
 
   data['hash'] = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+
+  var summaryRows = $('tbody').eq(1).find('tr');
+
+  data['subtotal'] = !!summaryRows.eq(0).find('td').eq(1).text() ? trim(summaryRows.eq(0).find('td').eq(1).text()).replace('PKR ', '') : 0;
+  data['discount'] = !!summaryRows.eq(1).find('td').eq(1).text() ? trim(summaryRows.eq(1).find('td').eq(1).text()).replace('PKR ', '') : 0;
+  data['shipping'] = !!summaryRows.eq(2).find('td').eq(1).text() ? trim(summaryRows.eq(2).find('td').eq(1).text()).replace('PKR ', '') : 0;
+  data['total'] = !!summaryRows.eq(3).find('td').eq(1).text() ? trim(summaryRows.eq(3).find('td').eq(1).text()).replace('PKR ', '') : 0;
 
   postData(data);
 }
